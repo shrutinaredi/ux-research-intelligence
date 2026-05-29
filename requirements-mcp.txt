@@ -1,0 +1,4 @@
+mcp
+groq
+chromadb
+sentence-transformers

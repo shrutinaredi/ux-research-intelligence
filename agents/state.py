@@ -4,7 +4,8 @@ The graph threads a single dict through every node. Each node reads the
 fields it needs and returns a partial dict that LangGraph merges back in.
 """
 
-from typing import Literal, TypedDict
+from __future__ import annotations
+from typing import Literal, Optional, TypedDict
 
 QuestionType = Literal["factual", "multihop", "comparison"]
 
@@ -20,7 +21,7 @@ class CriticVerdict(TypedDict):
     supported: bool               # did every sentence land on a retrieved chunk?
     unsupported_claims: list[str] # sentences the critic couldn't ground
     needs_retry: bool             # should we re-retrieve with a refined query?
-    refined_query: str | None     # critic's suggested re-query, if any
+    refined_query: Optional[str]  # critic's suggested re-query, if any
 
 
 class GraphState(TypedDict, total=False):

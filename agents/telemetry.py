@@ -1,5 +1,6 @@
 """SQLite telemetry — logs every run and user feedback to a local DB.
 
+
 Two tables:
   runs     — one row per question. Holds query, retrieved chunks, answer,
              critic verdict, latency.
@@ -11,7 +12,10 @@ Used by:
   - manual triage (sqlite3 research_assistant.db)
 """
 
+from __future__ import annotations
+
 import json
+from typing import Optional
 import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
@@ -61,10 +65,10 @@ def log_run(
     *,
     run_id: str,
     question: str,
-    question_type: str | None,
-    retrieval_query: str | None,
-    top_k: int | None,
-    attempts: int | None,
+    question_type: Optional[str],
+    retrieval_query: Optional[str],
+    top_k: Optional[int],
+    attempts: Optional[int],
     chunks: list[dict],
     answer: str,
     critic: dict,
@@ -91,7 +95,7 @@ def log_run(
         )
 
 
-def log_feedback(run_id: str, rating: str, comment: str | None = None) -> None:
+def log_feedback(run_id: str, rating: str, comment: Optional[str] = None) -> None:
     assert rating in ("up", "down")
     with _conn() as conn:
         conn.execute(

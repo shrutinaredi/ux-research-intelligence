@@ -5,7 +5,10 @@ Uses Llama 3.1 8B Instant via Groq. Output is JSON validated against
 `CriticOutput` (Pydantic) so the graph can route on `needs_retry`.
 """
 
+from __future__ import annotations
+
 import json
+from typing import Optional
 
 from groq import Groq
 from pydantic import BaseModel, ValidationError
@@ -54,10 +57,10 @@ class CriticOutput(BaseModel):
     supported: bool
     unsupported_claims: list[str]
     needs_retry: bool
-    refined_query: str | None
+    refined_query: Optional[str]
 
 
-_client: Groq | None = None
+_client: Optional[Groq] = None
 
 
 def _get_client() -> Groq:

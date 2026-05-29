@@ -5,6 +5,10 @@ reasoning-heavy step. The system prompt constrains the model to cite
 every claim as [source, p.N] from retrieved excerpts only.
 """
 
+from __future__ import annotations
+
+from typing import Optional
+
 from groq import Groq
 
 from .state import GraphState
@@ -33,7 +37,7 @@ Rules:
    excerpt does not cover the claim, don't make the claim."""
 
 
-_client: Groq | None = None
+_client: Optional[Groq] = None
 
 
 def _get_client() -> Groq:

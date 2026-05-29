@@ -4,8 +4,10 @@ Uses Llama 3.1 8B Instant via Groq for speed. Output is a JSON object
 validated against `RouterDecision` (Pydantic).
 """
 
+from __future__ import annotations
+
 import json
-from typing import Literal
+from typing import Literal, Optional
 
 from groq import Groq
 from pydantic import BaseModel, Field, ValidationError
@@ -50,7 +52,7 @@ class RouterDecision(BaseModel):
     retrieval_query: str
 
 
-_client: Groq | None = None
+_client: Optional[Groq] = None
 
 
 def _get_client() -> Groq:
