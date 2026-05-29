@@ -36,10 +36,13 @@ if not os.getenv("GROQ_API_KEY"):
     )
     st.stop()
 
-from agents import run_query                        # noqa: E402
-from agents.retriever import set_retrieval_context  # noqa: E402
-from agents.telemetry import log_feedback           # noqa: E402
-from ingest import EMBEDDING_MODEL, ingest_file_obj # noqa: E402
+from agents import run_query                                    # noqa: E402
+from agents.retriever import set_retrieval_context              # noqa: E402
+from agents.telemetry import log_feedback                       # noqa: E402
+from ingest import EMBEDDING_MODEL, ingest_file_obj, ingest_sample_sessions  # noqa: E402
+
+SAMPLE_JSON = os.path.join(os.path.dirname(__file__), "data", "sample_sessions.json")
+SAMPLE_LABEL = "__sample__"
 
 MAX_FILES = 5
 
@@ -289,8 +292,18 @@ with st.sidebar:
     st.caption("Upload interview transcripts or research PDFs, then ask anything across them.")
     st.divider()
 
+    # ── Sample data ──
+    if SAMPLE_LABEL not in st.session_state.ingested:
+        if st.button("⚡ Load sample sessions", use_container_width=True):
+            with st.spinner("Loading 10 mock UX interviews…"):
+                n = ingest_sample_sessions(SAMPLE_JSON, st.session_state.collection, model)
+            st.session_state.ingested[SAMPLE_LABEL] = n
+            st.rerun()
+        st.caption("10 pre-built sessions about dashboard UX — great for a quick demo.")
+        st.divider()
+
     uploaded = st.file_uploader(
-        "Drop files here",
+        "Or drop your own files",
         type=["pdf", "txt"],
         accept_multiple_files=True,
         label_visibility="visible",
@@ -321,10 +334,15 @@ with st.sidebar:
         st.divider()
         st.markdown("**Loaded sessions**")
         for name, n in st.session_state.ingested.items():
-            icon = "📄" if name.endswith(".pdf") else "📝"
+            if name == SAMPLE_LABEL:
+                icon, label = "🗂", "Sample UX Sessions (10)"
+            elif name.endswith(".pdf"):
+                icon, label = "📄", name
+            else:
+                icon, label = "📝", name
             st.markdown(
                 f"<div style='font-size:0.88rem;padding:4px 0'>"
-                f"{icon} <b>{name}</b><br>"
+                f"{icon} <b>{label}</b><br>"
                 f"<span class='source-chip' style='font-size:0.78rem'>{n} chunks indexed</span>"
                 f"</div>",
                 unsafe_allow_html=True,
@@ -381,6 +399,35 @@ if st.session_state.ingested:
         f'</div>',
         unsafe_allow_html=True,
     )
+
+
+# ---------------------------------------------------------------------------
+# Ask form  OR  empty state
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# Executive Summary
+# ---------------------------------------------------------------------------
+
+SUMMARY_PROMPT = (
+    "What are the top 5 recurring user pain points across all sessions? "
+    "For each, give a one-sentence description and cite the session ID."
+)
+
+if st.session_state.ingested:
+    with st.expander("📋 Generate Executive UX Summary", expanded=False):
+        st.caption(
+            "Synthesizes the top themes and pain points across all loaded sessions "
+            "into a shareable brief — grounded in transcript evidence."
+        )
+        if st.button("Generate summary", type="primary", use_container_width=True):
+            with st.spinner("Synthesizing across all sessions…"):
+                try:
+                    result = run_query(SUMMARY_PROMPT)
+                    st.session_state.history.insert(0, result)
+                    st.success("Summary added to results below.")
+                except Exception as e:
+                    st.error(f"Failed: {e}")
 
 
 # ---------------------------------------------------------------------------

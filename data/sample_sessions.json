@@ -1,0 +1,82 @@
+[
+  {
+    "id": "P01",
+    "participant": "Lisa, Product Manager @ Fintech startup",
+    "date": "2024-11-05",
+    "theme": "discoverability",
+    "friction_score": 4,
+    "text": "I can never find the research I need on the dashboard. Everything is buried under tabs and filters I don't understand. Last week I spent 20 minutes looking for a usability study we ran in September. I eventually gave up and started keeping my own Notion document. The dashboard feels like it was designed for someone who already knows where everything lives."
+  },
+  {
+    "id": "P02",
+    "participant": "Marcus, UX Researcher @ E-commerce platform",
+    "date": "2024-11-06",
+    "theme": "information architecture",
+    "friction_score": 5,
+    "text": "The dashboard is overwhelming the moment you log in. There are eight different sections visible at once and I don't know what to prioritize. My eye doesn't know where to go. I end up just clicking around hoping to land on what I need. The worst part is that 'Recent Studies' and 'My Studies' look identical — I keep opening the wrong one."
+  },
+  {
+    "id": "P03",
+    "participant": "Priya, Research Ops Lead @ HR SaaS",
+    "date": "2024-11-07",
+    "theme": "onboarding",
+    "friction_score": 3,
+    "text": "When I first started using the dashboard I had no idea what to do. There's no clear starting point. I expected something like 'create your first study' or a checklist, but instead I was dropped into an empty state with no guidance. New team members I onboard have the same problem — they message me asking where to begin. That shouldn't be my job to explain."
+  },
+  {
+    "id": "P04",
+    "participant": "Jordan, Head of Product @ B2B SaaS",
+    "date": "2024-11-08",
+    "theme": "comprehension",
+    "friction_score": 4,
+    "text": "The metrics on the dashboard don't mean anything to me in context. I see numbers like '84% completion rate' but I don't know if that's good or bad for my type of study. There's no benchmark, no comparison to previous studies, no explanation of what drives the number. I've stopped looking at them because they don't help me make decisions."
+  },
+  {
+    "id": "P05",
+    "participant": "Aisha, Senior Researcher @ Healthcare",
+    "date": "2024-11-11",
+    "theme": "workflow",
+    "friction_score": 5,
+    "text": "I need to compare findings across sessions constantly — it's the core of my job. But the dashboard makes this nearly impossible. I have to open each study in a separate tab, scroll through findings, and manually copy quotes into a spreadsheet. There's no side-by-side view, no tagging across sessions, nothing. It's like the tool was built for single studies, not longitudinal research."
+  },
+  {
+    "id": "P06",
+    "participant": "Tom, Design Lead @ Fintech",
+    "date": "2024-11-12",
+    "theme": "findability",
+    "friction_score": 5,
+    "text": "The search on the dashboard is broken, or at least it feels that way. I searched for 'checkout friction' and got results from a completely unrelated accessibility study. The results seem to be keyword matches, not semantic — so if a participant said 'payment flow felt clunky' instead of 'checkout friction' it doesn't show up. I've stopped trusting search and just scroll manually."
+  },
+  {
+    "id": "P07",
+    "participant": "Sana, UX Researcher @ EdTech",
+    "date": "2024-11-13",
+    "theme": "efficiency",
+    "friction_score": 3,
+    "text": "Getting to my interview recordings takes way too many clicks. Dashboard → Studies → My Studies → Filter by date → Open study → Recordings tab → play. That's six steps minimum. I do this dozens of times a week. If I could pin a shortcut or have a 'jump to recent recordings' option on the homepage I'd save probably 30 minutes a week."
+  },
+  {
+    "id": "P08",
+    "participant": "Raj, Product Researcher @ SaaS startup",
+    "date": "2024-11-14",
+    "theme": "information architecture",
+    "friction_score": 4,
+    "text": "There's no clear visual hierarchy on the dashboard. Everything looks equally important — the same font size, same card style, same color. So I treat everything as noise and only look for the one thing I need. Important alerts get missed. I once missed a participant cancellation because the notification blended into the rest of the page."
+  },
+  {
+    "id": "P09",
+    "participant": "Chloe, Research Manager @ Retail",
+    "date": "2024-11-15",
+    "theme": "comprehension",
+    "friction_score": 3,
+    "text": "The 'Recent Activity' feed on the dashboard shows things like 'Study updated' or 'Participant added' but gives me no context about why or what changed. Who updated it? What did they change? I work with a team of four researchers and we all make changes, but the dashboard doesn't tell me enough to know if I need to act on anything. It's a log, not an insight."
+  },
+  {
+    "id": "P10",
+    "participant": "Ben, Senior PM @ Consumer App",
+    "date": "2024-11-18",
+    "theme": "complexity",
+    "friction_score": 4,
+    "text": "I tried to customize my dashboard view — pin the studies I care about, hide sections I never use — and it was completely unclear how. I eventually found a settings panel buried three layers deep. Even then the options were confusing: 'Module visibility' with toggles that had no descriptions. I turned something off and half my dashboard disappeared. I had to reset everything. Now I don't touch the settings."
+  }
+]

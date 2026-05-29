@@ -236,6 +236,44 @@ def ingest_pdf(pdf_path: str, collection: chromadb.Collection, model: SentenceTr
     print(f"  Stored {len(all_chunks)} chunks in ChromaDB")
 
 
+def ingest_sample_sessions(
+    json_path: str,
+    collection: chromadb.Collection,
+    model: SentenceTransformer,
+) -> int:
+    """Ingest pre-built mock UX interview sessions from a JSON file.
+
+    Each session becomes a single chunk tagged with its participant and theme.
+    Returns the number of chunks stored.
+    """
+    import json
+    with open(json_path, "r") as f:
+        sessions = json.load(f)
+
+    all_chunks, all_ids, all_metadatas = [], [], []
+    for s in sessions:
+        text = (
+            f"Participant: {s['participant']}\n"
+            f"Date: {s['date']}\n"
+            f"Theme: {s['theme']}\n"
+            f"Friction score: {s['friction_score']}/5\n\n"
+            f"{s['text']}"
+        )
+        chunk_id = hashlib.md5(f"sample__{s['id']}".encode()).hexdigest()
+        all_chunks.append(text)
+        all_ids.append(chunk_id)
+        all_metadatas.append({
+            "source": f"sample_{s['id']}",
+            "page": 1,
+            "chunk": 0,
+        })
+
+    embeddings = embed_texts(all_chunks, model)
+    collection.upsert(ids=all_ids, documents=all_chunks,
+                      embeddings=embeddings, metadatas=all_metadatas)
+    return len(all_chunks)
+
+
 def extract_text_from_txt(file_obj) -> list[dict]:
     """Read a plain-text transcript and split into ~CHUNK_SIZE-word segments.
 

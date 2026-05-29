@@ -8,3 +8,4 @@ research_assistant.db
 .DS_Store
 chroma_db/
 data/pdfs/
+!data/sample_sessions.json

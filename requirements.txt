@@ -8,3 +8,4 @@ pypdf
 pdfplumber
 streamlit
 python-dotenv
+mcp
