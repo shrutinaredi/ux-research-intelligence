@@ -57,70 +57,115 @@ MAX_FILES = 5
 st.markdown(
     """
     <style>
-      /* Tighter top padding so the hero starts higher */
-      .block-container { padding-top: 2rem; }
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-      /* Hero */
-      .hero-title {
-        font-size: 2.4rem;
+      html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
+
+      .block-container { padding-top: 0rem !important; max-width: 900px; }
+
+      /* ── Hero band ── */
+      .hero-band {
+        background: linear-gradient(135deg, #1A0E3B 0%, #3D1F8E 55%, #5B4CF5 100%);
+        border-radius: 0 0 20px 20px;
+        padding: 2.2rem 2.5rem 2rem 2.5rem;
+        margin-bottom: 2rem;
+      }
+      .hero-badge {
+        display: inline-block;
+        background: rgba(255,255,255,0.15);
+        color: #C4B8F8;
+        font-size: 0.72rem;
         font-weight: 700;
-        letter-spacing: -0.02em;
-        margin-bottom: 0.25rem;
-        color: #1F1B16;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 3px 12px;
+        border-radius: 999px;
+        margin-bottom: 0.85rem;
+        border: 1px solid rgba(255,255,255,0.2);
+      }
+      .hero-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: #FFFFFF;
+        margin-bottom: 0.4rem;
+        line-height: 1.15;
+      }
+      .hero-title span {
+        color: #00D4C8;
       }
       .hero-tag {
-        font-size: 1.05rem;
-        color: #6B5F4F;
-        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        color: #C4B8F8;
+        margin: 0;
+        font-weight: 400;
       }
 
-      /* Status pills */
+      /* ── Status pills ── */
       .pill {
         display: inline-block;
-        padding: 2px 10px;
+        padding: 3px 11px;
         border-radius: 999px;
-        font-size: 0.78rem;
+        font-size: 0.76rem;
         font-weight: 600;
         margin-right: 6px;
-        line-height: 1.5;
+        line-height: 1.6;
       }
-      .pill-good   { background:#DCFCE7; color:#166534; }
-      .pill-warn   { background:#FEF3C7; color:#92400E; }
-      .pill-info   { background:#E0E7FF; color:#3730A3; }
-      .pill-muted  { background:#F1F5F9; color:#475569; }
+      .pill-good  { background: #D1FAE5; color: #065F46; }
+      .pill-warn  { background: #FEF3C7; color: #92400E; }
+      .pill-info  { background: #EDE9FE; color: #5B21B6; }
+      .pill-muted { background: #F1F5F9; color: #475569; }
 
-      /* Q&A card */
+      /* ── Q&A card ── */
       .qcard h3 {
         font-size: 1.1rem;
-        margin: 0 0 0.5rem 0;
-        color: #0F172A;
+        font-weight: 700;
+        margin: 0 0 0.6rem 0;
+        color: #1A0E3B;
       }
 
-      /* Source chip */
+      /* ── Source chip ── */
       .source-chip {
-        font-size: 0.85rem;
-        color: #475569;
+        font-size: 0.83rem;
+        color: #5B4CF5;
         font-weight: 500;
       }
 
-      /* Empty-state card */
+      /* ── Empty-state card ── */
       .empty-card {
-        border: 1px dashed #D8CFBE;
-        border-radius: 12px;
-        padding: 1.75rem;
+        border: 1.5px dashed #C4B8F8;
+        border-radius: 16px;
+        padding: 2.5rem 2rem;
         text-align: center;
-        background: #FFFFFF;
-        color: #6B5F4F;
-        box-shadow: 0 1px 2px rgba(31, 27, 22, 0.05);
+        background: #F5F3FF;
+        color: #3D1F8E;
+        font-weight: 500;
+      }
+      .empty-card b { color: #1A0E3B; }
+
+      /* ── Source excerpt box ── */
+      .excerpt-box {
+        font-size: 0.88rem;
+        color: #1E1B4B;
+        background: #F5F3FF;
+        padding: 0.8rem 1rem;
+        border-radius: 10px;
+        margin-bottom: 0.5rem;
+        border-left: 3px solid #5B4CF5;
       }
 
-      /* Footer */
+      /* ── Footer ── */
       .footer-note {
         margin-top: 3rem;
         padding-top: 1rem;
-        border-top: 1px solid #E5DBC8;
-        color: #6B5F4F;
-        font-size: 0.85rem;
+        border-top: 1px solid #DDD6FE;
+        color: #6B7280;
+        font-size: 0.83rem;
+      }
+
+      /* ── Sidebar tweaks ── */
+      [data-testid="stSidebar"] {
+        border-right: 1px solid #DDD6FE;
       }
     </style>
     """,
@@ -229,10 +274,13 @@ with st.sidebar:
 # Hero
 # ---------------------------------------------------------------------------
 
-st.markdown('<div class="hero-title">UX Research Intelligence</div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="hero-tag">Ask questions across your interview transcripts · '
-    'session-level citations · self-verifying critic loop</div>',
+    '<div class="hero-band">'
+    '<div class="hero-badge">Powered by LangGraph · Groq · ChromaDB</div>'
+    '<div class="hero-title">UX Research <span>Intelligence</span></div>'
+    '<div class="hero-tag">Ask questions across your interview transcripts &nbsp;·&nbsp; '
+    'session-level citations &nbsp;·&nbsp; self-verifying critic loop</div>'
+    '</div>',
     unsafe_allow_html=True,
 )
 
@@ -340,10 +388,7 @@ def render_run(run: dict) -> None:
                     unsafe_allow_html=True,
                 )
                 st.markdown(
-                    f"<div style='font-size:0.9rem;color:#3D362D;"
-                    f"background:#FAF6EF;padding:0.75rem;border-radius:8px;"
-                    f"margin-bottom:0.5rem;border:1px solid #E5DBC8;'>"
-                    f"{chunk['text']}</div>",
+                    f"<div class='excerpt-box'>{chunk['text']}</div>",
                     unsafe_allow_html=True,
                 )
 
@@ -368,10 +413,8 @@ for run in st.session_state.history:
 
 st.markdown(
     '<div class="footer-note">'
-    'Built with LangGraph · Llama 3.1 8B (Groq) · ChromaDB · Streamlit. '
-    'Supports PDF reports and .txt interview transcripts. '
-    'Session excerpts are returned with cosine similarity scores; the critic '
-    'agent verifies every claim is grounded in the transcript before surfacing it.'
+    'Built for <b>Great Question</b> · LangGraph · Llama 3.1 8B via Groq · ChromaDB · Streamlit &nbsp;'
+    '· Supports .pdf &amp; .txt transcripts · Critic agent verifies every claim before surfacing it.'
     '</div>',
     unsafe_allow_html=True,
 )
