@@ -299,7 +299,6 @@ with st.sidebar:
                 n = ingest_sample_sessions(SAMPLE_JSON, st.session_state.collection, model)
             st.session_state.ingested[SAMPLE_LABEL] = n
             st.rerun()
-        st.caption("10 pre-built sessions about dashboard UX — great for a quick demo.")
         st.divider()
 
     uploaded = st.file_uploader(
